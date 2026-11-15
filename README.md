@@ -38,6 +38,15 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
    sudo ./setup-upv.sh <usuario_upv> [usuario_local_linux]
    ```
 
+4. **Reinicia el equipo** cuando el script termine:
+
+   ```bash
+   sudo reboot
+   ```
+
+> [!IMPORTANT]
+> Es **necesario reiniciar el equipo tras ejecutar el script** para que todo (WiFi, VPN y unidad `W:`) aparezca y funcione correctamente.
+
 ### 📝 Ejemplo práctico
 
 Supongamos que un alumno llamado Alejandro García Pedrosa tiene el correo `agarped@alumno.upv.es` y su usuario en Linux es `alejandro`:
@@ -48,7 +57,7 @@ sudo ./setup-upv.sh agarped
 
 **¿Qué ocurrirá paso a paso?**
 
-1. El script detectará automáticamente que el usuario local es `alejandro` (gracias a `$SUDO_USER`, aunque también puedes especificarlo manualmente con `sudo ./setup-upv.sh agarcia alejandro`).
+1. El script detectará automáticamente que el usuario local es `alejandro` (gracias a `$SUDO_USER`, aunque también puedes especificarlo manualmente con `sudo ./setup-upv.sh agarped alejandro`).
 2. Te pedirá tu contraseña de la intranet en pantalla sin mostrar los caracteres al escribir:
 
    ```text
@@ -57,6 +66,7 @@ sudo ./setup-upv.sh agarped
 
 3. Instalará los paquetes necesarios (`network-manager-vpnc`, `vpnc`, `cifs-utils`) según tu distribución.
 4. Creará los perfiles `UPVNET` y `VPN-UPV` en NetworkManager y configurará el punto de montaje `/home/alejandro/W`.
+5. Al terminar, tendrás que reiniciar el equipo para que todo quede funcionando.
 
 ## Cómo conectarse tras la instalación
 
@@ -68,6 +78,14 @@ sudo ./setup-upv.sh agarped
   ```
 
 - **Unidad W:** una vez conectado a `UPVNET` o a `VPN-UPV`, entra en la carpeta `~/W` desde tu explorador de archivos o terminal; systemd la montará automáticamente al acceder.
+
+## Problemas conocidos
+
+> [!WARNING]
+> **No actives la VPN-UPV estando conectado a la red de la UPV dentro del campus.** Si lo haces, pueden aparecer errores de conexión. Dentro del campus (`UPVNET`) no es necesaria la VPN: la unidad `W:` y el resto de recursos son accesibles directamente. Usa la VPN solo cuando estés fuera de la red de la UPV.
+
+> [!NOTE]
+> Si tras ejecutar el script la WiFi, la VPN o la unidad `W:` no aparecen o no funcionan, comprueba primero que has **reiniciado el equipo**.
 
 ## Seguridad y privacidad de tus datos
 
