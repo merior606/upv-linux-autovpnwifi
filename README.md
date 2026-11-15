@@ -6,20 +6,74 @@ Script de automatización en Bash diseñado para **alumnos de la Universitat Pol
 
 Configurar manualmente los servicios de red de la UPV en Linux requiere instalar dependencias específicas, importar certificados, crear perfiles en NetworkManager y configurar el automontaje CIFS en `/etc/fstab`. Este script realiza todo el proceso de forma automática para cuentas de estudiante (`@alumno.upv.es`):
 
-- **WiFi `UPVNET`:** Configura la autenticación WPA2-Enterprise (PEAP / MSCHAPv2) con el certificado oficial de la entidad certificadora.
-- **VPN Corporativa (`VPN-UPV`):** Instala y configura el cliente Cisco VPNC con la pasarela y parámetros oficiales de la UPV.
-- **Unidad Personal (`W:`):** Configura el montaje bajo demanda (`systemd.automount`) de tu carpeta del NAS de alumnos directamente en `~/W`.
+- **WiFi `UPVNET`:** configura la autenticación WPA2-Enterprise (PEAP / MSCHAPv2) con el certificado oficial de la entidad certificadora.
+- **VPN corporativa (`VPN-UPV`):** instala y configura el cliente Cisco VPNC con la pasarela y parámetros oficiales de la UPV.
+- **Unidad personal (`W:`):** configura el montaje bajo demanda (`systemd.automount`) de tu carpeta del NAS de alumnos directamente en `~/W`.
 
-## Compatibilidad y Requisitos
+## Compatibilidad y requisitos
 
-- **Arch Linux / Manjaro / EndeavourOS** (`pacman`) — *Probado y en uso diario sin incidencias.*
-- **Ubuntu 26.04 / Debian 13 y derivados** (`apt-get`) — *Basado en la guía oficial de la UPV.*
-- **Máquinas Virtuales (VirtualBox, VMware, QEMU/KVM):** Funciona sin problemas tanto en modo NAT como en Adaptador Puente (*Bridged*). Aunque una máquina virtual utilice una interfaz Ethernet virtual (y por tanto ignore el perfil WiFi), la **VPN-UPV** y el montaje de la **unidad W:** funcionan exactamente igual que en una instalación nativa.
+- **Arch Linux / Manjaro / EndeavourOS** (`pacman`) — *probado y en uso diario sin incidencias.*
+- **Ubuntu 26.04 / Debian 13 y derivados** (`apt-get`) — *basado en la guía oficial de la UPV.*
+- **Máquinas virtuales (VirtualBox, VMware, QEMU/KVM):** funciona sin problemas tanto en modo NAT como en Adaptador Puente (*Bridged*). Aunque una máquina virtual utilice una interfaz Ethernet virtual (y por tanto ignore el perfil WiFi), la **VPN-UPV** y el montaje de la **unidad W:** funcionan exactamente igual que en una instalación nativa.
 - Sistema con **NetworkManager**, **systemd** y permisos de superusuario (`sudo`).
 
-## Instalación y Uso
+## Instalación y uso
 
 1. **Clona el repositorio** y accede al directorio:
+
    ```bash
-   git clone [https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git](https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git)
+   git clone https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git
    cd upv-linux-autovpnwifi
+   ```
+
+2. **Dale permisos de ejecución** al script:
+
+   ```bash
+   chmod +x setup-upv.sh
+   ```
+
+3. **Ejecútalo** pasando como argumento tu identificador de usuario de la intranet UPV (la parte anterior a `@alumno.upv.es`):
+
+   ```bash
+   sudo ./setup-upv.sh <usuario_upv> [usuario_local_linux]
+   ```
+
+### 📝 Ejemplo práctico
+
+Supongamos que un alumno llamado Alejandro García Pedrosa tiene el correo `agarped@alumno.upv.es` y su usuario en Linux es `alejandro`:
+
+```bash
+sudo ./setup-upv.sh agarped
+```
+
+**¿Qué ocurrirá paso a paso?**
+
+1. El script detectará automáticamente que el usuario local es `alejandro` (gracias a `$SUDO_USER`, aunque también puedes especificarlo manualmente con `sudo ./setup-upv.sh agarcia alejandro`).
+2. Te pedirá tu contraseña de la intranet en pantalla sin mostrar los caracteres al escribir:
+
+   ```text
+   Introduce tu contraseña de la intranet UPV (agarped):
+   ```
+
+3. Instalará los paquetes necesarios (`network-manager-vpnc`, `vpnc`, `cifs-utils`) según tu distribución.
+4. Creará los perfiles `UPVNET` y `VPN-UPV` en NetworkManager y configurará el punto de montaje `/home/alejandro/W`.
+
+## Cómo conectarse tras la instalación
+
+- **WiFi:** se conectará automáticamente al detectar la red `UPVNET` en el campus.
+- **VPN:** actívala desde el icono de red de tu escritorio seleccionando `VPN-UPV` o desde la terminal:
+
+  ```bash
+  nmcli connection up VPN-UPV
+  ```
+
+- **Unidad W:** una vez conectado a `UPVNET` o a `VPN-UPV`, entra en la carpeta `~/W` desde tu explorador de archivos o terminal; systemd la montará automáticamente al acceder.
+
+## Seguridad y privacidad de tus datos
+
+Tratándose de credenciales universitarias, el script está diseñado para garantizar que tus datos nunca queden expuestos:
+
+- **100% transparente y auditable:** es un único archivo de texto plano en Bash sin binarios ocultos ni dependencias externas. Puedes leer cada línea antes de ejecutarlo.
+- **Cero conexiones externas:** el script no envía telemetría ni transmite tus datos a ningún servidor de terceros; únicamente escribe los archivos de configuración estándar de tu propio sistema operativo.
+- **Sin rastro en el historial de comandos:** al solicitar la contraseña de forma interactiva con `read -s` en lugar de pasarla como parámetro, tu clave nunca se guarda en `~/.bash_history` ni es visible en la lista de procesos del sistema (`ps`).
+- **Permisos estrictos (`chmod 600`):** tanto los perfiles de NetworkManager (`/etc/NetworkManager/system-connections/`) como el fichero de credenciales de red (`/root/.smbcredentials`) pertenecen exclusivamente a `root:root` con permisos `600`, impidiendo que otros usuarios o aplicaciones sin privilegios puedan leerlos.
