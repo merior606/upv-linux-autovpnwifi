@@ -1,4 +1,4 @@
-# 🎓 UPV Linux AutoConfig Network — WiFi, VPN y Unidad W:
+# UPV Linux AutoConfig Network — WiFi, VPN y Unidad W:
 
 Script de automatización en Bash diseñado para **alumnos de la Universitat Politècnica de València (UPV)** que simplifica en un solo comando todo el proceso descrito en el [manual oficial de la Wiki UPV (ManualesVPNparaLinux)](https://wiki.upv.es/confluence/spaces/MANUALES/pages/903381127/Manuales+de+conexi%C3%B3n+VPN+a+la+UPV#Manualesdeconexi%C3%B3nVPNalaUPV-ManualesVPNparaLinux), ampliando además la compatibilidad a sistemas basados en **Arch Linux**.
 
@@ -16,9 +16,9 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 * **Ubuntu 26.04 / Debian 13 y derivados** (`apt-get`) — *Basado en la guía oficial de la UPV.*
 * Sistema con **NetworkManager**, **systemd** y permisos de superusuario (`sudo`).
 
-## 🚀 Instalación y Uso
+##  Instalación y Uso
 
-1. **Clona el repositorio** y accede al directorio:
+**Clona el repositorio** y accede al directorio:
    ```bash
    git clone [https://github.com/TU_USUARIO/upv-linux-autoconfig.git](https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git)
    cd upv-linux-autovpnwifi
