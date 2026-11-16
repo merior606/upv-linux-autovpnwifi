@@ -129,3 +129,7 @@ Tratándose de credenciales universitarias, el script está diseñado para garan
 - **Cero conexiones externas:** el script no envía telemetría ni transmite tus datos a ningún servidor de terceros; únicamente escribe los archivos de configuración estándar de tu propio sistema operativo.
 - **Sin rastro en el historial de comandos:** al solicitar la contraseña de forma interactiva con `read -s` en lugar de pasarla como parámetro, tu clave nunca se guarda en `~/.bash_history` ni es visible en la lista de procesos del sistema (`ps`).
 - **Permisos estrictos (`chmod 600`):** tanto los perfiles de NetworkManager (`/etc/NetworkManager/system-connections/`) como el fichero de credenciales de red (`/root/.smbcredentials`) pertenecen exclusivamente a `root:root` con permisos `600`, impidiendo que otros usuarios o aplicaciones sin privilegios puedan leerlos.
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
