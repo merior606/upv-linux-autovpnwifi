@@ -14,7 +14,7 @@ set -e
 if [ "$EUID" -ne 0 ]; then
   echo "Error: Por favor, ejecuta este script como root (usando sudo)."
   echo "Uso: sudo $0 <usuario_upv> [usuario_local_linux]"
-  echo "Ejemplo: sudo $0 tunombre \$USER"
+  echo "Ejemplo: sudo $0 nlospis \$USER"
   exit 1
 fi
 
