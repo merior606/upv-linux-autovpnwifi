@@ -7,7 +7,7 @@ Script de automatización en Bash diseñado para **alumnos de la Universitat Pol
 Configurar manualmente los servicios de red de la UPV en Linux requiere instalar dependencias específicas, importar certificados, crear perfiles en NetworkManager y configurar el automontaje CIFS en `/etc/fstab`. Este script realiza todo el proceso de forma automática para cuentas de estudiante (`@alumno.upv.es`):
 
 - **WiFi `UPVNET`:** configura la autenticación WPA2-Enterprise (PEAP / MSCHAPv2) con el certificado oficial de la entidad certificadora.
-- **VPN corporativa (`VPN-UPV`):** instala y configura el cliente Cisco VPNC con la pasarela y parámetros oficiales de la UPV.
+- **VPN corporativa (`VPN-UPV`):** instala y configura el cliente Cisco VPNC con la pasarela y parámetros oficiales de la UPV. Por defecto usa el grupo `soloupv` y la interfaz de red `tun0` (ver [Configuración por defecto de la VPN](#configuración-por-defecto-de-la-vpn)).
 - **Unidad personal (`W:`):** configura el montaje bajo demanda (`systemd.automount`) de tu carpeta del NAS de alumnos directamente en `~/W`.
 
 ## Compatibilidad y requisitos
@@ -78,6 +78,17 @@ sudo ./setup-upv.sh agarped
   ```
 
 - **Unidad W:** una vez conectado a `UPVNET` o a `VPN-UPV`, entra en la carpeta `~/W` desde tu explorador de archivos o terminal; systemd la montará automáticamente al acceder.
+
+## Configuración por defecto de la VPN
+
+El perfil `VPN-UPV` se crea con estos valores por defecto:
+
+| Parámetro | Valor por defecto |
+|---|---|
+| **Grupo** | `soloupv` |
+| **Interfaz de red** | `tun0` |
+
+El grupo `soloupv` permite acceder a todos los recursos de la Intranet de la UPV, pero el tráfico de navegación por Internet **no pasa por la UPV**. Es la opción que la propia UPV recomienda por defecto en su [manual de VPN para Linux](https://wiki.upv.es/confluence/spaces/MANUALES/pages/903381134/Linux+-+VPN+con+versiones+anteriores+de+Ubuntu). No obstante, se puede modificar sustituyendo `soloupv` por `biblioteca` en /etc/NetworkManager/system-connections/VPN-UPV.nmconnection.
 
 ## Problemas conocidos
 
