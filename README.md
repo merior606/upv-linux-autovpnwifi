@@ -22,7 +22,7 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 1. **Clona el repositorio** y accede al directorio:
 
    ```bash
-   git clone https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git
+   git clone https://github.com/merior606/upv-linux-autovpnwifi.git
    cd upv-linux-autovpnwifi
    ```
 
