@@ -1,4 +1,4 @@
-# UPV Linux AutoConfig Network — WiFi, VPN y Unidad W:
+'# UPV Linux AutoConfig Network — WiFi, VPN y Unidad W:
 
 Script de automatización en Bash diseñado para **alumnos de la Universitat Politècnica de València (UPV)** que simplifica en un solo comando todo el proceso descrito en el [manual oficial de la Wiki UPV (ManualesVPNparaLinux)](https://wiki.upv.es/confluence/spaces/MANUALES/pages/903381127/Manuales+de+conexi%C3%B3n+VPN+a+la+UPV#Manualesdeconexi%C3%B3nVPNalaUPV-ManualesVPNparaLinux), ampliando además la compatibilidad a sistemas basados en **Arch Linux**.
 
@@ -23,7 +23,7 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 1. **Clona el repositorio** y accede al directorio:
 
    ```bash
-   git clone https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git
+   git clone https://github.com/merior606/upv-linux-autovpnwifi.git
    cd upv-linux-autovpnwifi
    ```
 
@@ -48,7 +48,10 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 > [!IMPORTANT]
 > Es **necesario reiniciar el equipo tras ejecutar el script** para que todo (WiFi, VPN y unidad `W:`) aparezca y funcione correctamente.
 
-### Ejemplo práctico
+> [!TIP]
+> ¿Te has equivocado con el usuario o la contraseña? No pasa nada: puedes volver a ejecutar el script y se sobrescribirá la configuración anterior (ver [Problemas conocidos](#problemas-conocidos)).
+
+### 📝 Ejemplo práctico
 
 Supongamos que un alumno llamado Alejandro García Pedrosa tiene el correo `agarped@alumno.upv.es` y su usuario en Linux es `alejandro`:
 
@@ -107,6 +110,16 @@ El grupo `soloupv` permite acceder a todos los recursos de la Intranet de la UPV
 
 > [!NOTE]
 > Si tras ejecutar el script la WiFi, la VPN o la unidad `W:` no aparecen o no funcionan, comprueba primero que has **reiniciado el equipo**.
+
+### Me equivoqué con el usuario o la contraseña
+
+Si introdujiste mal tu usuario de la intranet o tu contraseña, **vuelve a ejecutar el script** con los datos correctos:
+
+```bash
+sudo ./setup-upv.sh <usuario_upv> [usuario_local_linux]
+```
+
+La configuración anterior se **sobrescribirá** con la nueva, así que no hace falta borrar nada a mano. Recuerda reiniciar el equipo después.
 
 ## Seguridad y privacidad de tus datos
 
