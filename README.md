@@ -1,4 +1,4 @@
-'# UPV Linux AutoConfig Network — WiFi, VPN y Unidad W:
+# UPV Linux AutoConfig Network — WiFi, VPN y Unidad W:
 
 Script de automatización en Bash diseñado para **alumnos de la Universitat Politècnica de València (UPV)** que simplifica en un solo comando todo el proceso descrito en los manuales oficiales de la Wiki UPV: [Linux - VPN con Ubuntu 26.04 y Debian 13](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1176470611/Linux+-+VPN+con+Ubuntu+26.04+y+Debian+13) y [Linux - VPN con versiones anteriores de Ubuntu](https://wiki.upv.es/confluence/spaces/MANUALES/pages/903381134/Linux+-+VPN+con+versiones+anteriores+de+Ubuntu). Funciona tanto en **Ubuntu 26.04 y Debian 13** como en **versiones anteriores de Ubuntu**, y amplía además la compatibilidad a sistemas basados en **Arch Linux**.
 
