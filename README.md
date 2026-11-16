@@ -48,7 +48,7 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 > [!IMPORTANT]
 > Es **necesario reiniciar el equipo tras ejecutar el script** para que todo (WiFi, VPN y unidad `W:`) aparezca y funcione correctamente.
 
-### 📝 Ejemplo práctico
+### Ejemplo práctico
 
 Supongamos que un alumno llamado Alejandro García Pedrosa tiene el correo `agarped@alumno.upv.es` y su usuario en Linux es `alejandro`:
 
