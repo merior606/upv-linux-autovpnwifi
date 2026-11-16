@@ -16,13 +16,14 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 - **Ubuntu 26.04 / Debian 13 y derivados** (`apt-get`) — *basado en la guía oficial de la UPV.*
 - **Máquinas virtuales (VirtualBox, VMware, QEMU/KVM):** funciona sin problemas tanto en modo NAT como en Adaptador Puente (*Bridged*). Aunque una máquina virtual utilice una interfaz Ethernet virtual (y por tanto ignore el perfil WiFi), la **VPN-UPV** y el montaje de la **unidad W:** funcionan exactamente igual que en una instalación nativa.
 - Sistema con **NetworkManager**, **systemd** y permisos de superusuario (`sudo`).
+- **Microsoft Authenticator** en el móvil, configurado previamente para la VPN de la UPV (ver [Autenticación multifactor (MFA)](#autenticación-multifactor-mfa-en-la-vpn)).
 
 ## Instalación y uso
 
 1. **Clona el repositorio** y accede al directorio:
 
    ```bash
-   git clone https://github.com/merior606/upv-linux-autovpnwifi.git
+   git clone https://github.com/TU_USUARIO/upv-linux-autovpnwifi.git
    cd upv-linux-autovpnwifi
    ```
 
@@ -77,7 +78,16 @@ sudo ./setup-upv.sh agarped
   nmcli connection up VPN-UPV
   ```
 
+  Tras intentar conectarte, tendrás que **autorizar el acceso desde el móvil con Microsoft Authenticator** (ver sección siguiente).
+
 - **Unidad W:** una vez conectado a `UPVNET` o a `VPN-UPV`, entra en la carpeta `~/W` desde tu explorador de archivos o terminal; systemd la montará automáticamente al acceder.
+
+## Autenticación multifactor (MFA) en la VPN
+
+La VPN de la UPV exige verificación en dos pasos. Cada vez que intentes conectarte a `VPN-UPV`, recibirás una solicitud en tu móvil que debes **aprobar desde Microsoft Authenticator**; hasta que no la autorices, la conexión no se completará.
+
+> [!IMPORTANT]
+> Microsoft Authenticator debe estar **configurado previamente** siguiendo la guía oficial de la UPV: [Configurar la autenticación Multi-Factor (MFA o 2FA) en VPN, Microsoft 365, Teams…](https://wiki.upv.es/confluence/spaces/MANUALES/pages/677052483/Configurar+la+autenticacio%CC%81n+Multi-Factor+MFA+o+2FA+en+VPN+Microsoft+365+teams). Sin este paso no podrás conectarte a la VPN.
 
 ## Configuración por defecto de la VPN
 
@@ -88,7 +98,7 @@ El perfil `VPN-UPV` se crea con estos valores por defecto:
 | **Grupo** | `soloupv` |
 | **Interfaz de red** | `tun0` |
 
-El grupo `soloupv` permite acceder a todos los recursos de la Intranet de la UPV, pero el tráfico de navegación por Internet **no pasa por la UPV**. Es la opción que la propia UPV recomienda por defecto en su [manual de VPN para Linux](https://wiki.upv.es/confluence/spaces/MANUALES/pages/903381134/Linux+-+VPN+con+versiones+anteriores+de+Ubuntu). No obstante, se puede modificar sustituyendo `soloupv` por `biblioteca` en /etc/NetworkManager/system-connections/VPN-UPV.nmconnection.
+El grupo `soloupv` permite acceder a todos los recursos de la Intranet de la UPV, pero el tráfico de navegación por Internet **no pasa por la UPV**. Es la opción que la propia UPV recomienda por defecto en su [manual de VPN para Linux](https://wiki.upv.es/confluence/spaces/MANUALES/pages/903381134/Linux+-+VPN+con+versiones+anteriores+de+Ubuntu).
 
 ## Problemas conocidos
 
