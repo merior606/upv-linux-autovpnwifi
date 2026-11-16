@@ -51,7 +51,7 @@ Configurar manualmente los servicios de red de la UPV en Linux requiere instalar
 > [!TIP]
 > ¿Te has equivocado con el usuario o la contraseña? No pasa nada: puedes volver a ejecutar el script y se sobrescribirá la configuración anterior (ver [Problemas conocidos](#problemas-conocidos)).
 
-### 📝 Ejemplo práctico
+### Ejemplo práctico
 
 Supongamos que un alumno llamado Alejandro García Pedrosa tiene el correo `agarped@alumno.upv.es` y su usuario en Linux es `alejandro`:
 
